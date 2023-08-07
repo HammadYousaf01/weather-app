@@ -6,7 +6,8 @@
       "components/*": ["./src/components/*"],
       "api/*": ["./src/api/*"],
       "pages/*": ["./src/pages/*"],
-      "store/*": ["./src/store//*"],
+      "store/*": ["./src/store/*"],
+      "theme/*": ["./src/theme/*"],
       "src/*": ["./src/*"]
     },
     "useDefineForClassFields": true,
