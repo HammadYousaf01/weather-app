@@ -10,6 +10,7 @@ export default defineConfig({
       api: "/src/api",
       store: "/src/store",
       pages: "/src/pages",
+      theme: "/src/theme",
       src: "/src",
     },
   },
