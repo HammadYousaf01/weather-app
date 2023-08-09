@@ -6,6 +6,9 @@ import App from "./App";
 import store from "store/store.ts";
 import ThemeProvider from "theme/ThemeProvider";
 
+import { Chart as ChartJS, registerables } from "chart.js";
+ChartJS.register(...registerables);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>

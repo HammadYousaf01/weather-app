@@ -1,19 +1,25 @@
-import TextField from "@mui/material/TextField";
+import TextField, { TextFieldProps } from "@mui/material/TextField";
+import { styled } from "@mui/material";
 
-import { useAppDispatch, useAppSelector } from "store/hooks";
-import { setCity } from "store/slices/citySlice";
+const StyledTextField = styled(TextField)<TextFieldProps>(() => ({
+  "& .MuiInputBase-root": {
+    borderRadius: "5px 0 0 5px",
+    borderRight: "none",
+    paddingLeft: 5,
+    height: "35px",
+    width: "200px",
+  },
+}));
 
-const SearchBox: React.FC = () => {
-  const city = useAppSelector((state) => state.city.currentCity);
-  const dispatch = useAppDispatch();
+interface Props {
+  city: string;
+  handleOnChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  >;
+}
 
-  const handleOnChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    dispatch(setCity(e.target.value));
-  };
-
-  return <TextField size="small" value={city} onChange={handleOnChange} />;
+const SearchBox: React.FC<Props> = ({ city, handleOnChange }) => {
+  return <StyledTextField value={city} onChange={handleOnChange} />;
 };
 
 export default SearchBox;
