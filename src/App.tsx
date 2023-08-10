@@ -1,5 +1,12 @@
+import Container from "@mui/material/Container";
+import { SearchPage } from "./pages";
+
 const App: React.FC = () => {
-  return <></>;
+  return (
+    <Container>
+      <SearchPage />
+    </Container>
+  );
 };
 
 export default App;
