@@ -1,26 +1,11 @@
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-
-import { formatDistance } from "date-fns";
+import Charts from "components/charts/Charts";
 
 interface Props {
-  search: {
-    city: string;
-    searchedAt: string;
-  };
+  data: ApiResponse | undefined;
 }
 
-const HistoryItem: React.FC<Props> = ({ search }) => {
-  return (
-    <ListItem>
-      <ListItemText
-        primary={search.city}
-        secondary={formatDistance(new Date(search.searchedAt), new Date(), {
-          addSuffix: true,
-        })}
-      />
-    </ListItem>
-  );
+const HistoryItem: React.FC<Props> = ({ data }) => {
+  return <Charts data={data} />;
 };
 
 export default HistoryItem;

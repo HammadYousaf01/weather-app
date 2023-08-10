@@ -4,10 +4,10 @@ export const citySlice = createSlice({
   name: "searchCity",
   initialState: {
     currentCity: "",
-    previousCities: [],
+    previousCities: [] as ApiResponse[],
   },
   reducers: {
-    setCity: (state, action) => {
+    setCurrentCity: (state, action) => {
       state.currentCity = action.payload;
     },
 
@@ -21,5 +21,5 @@ export const citySlice = createSlice({
   },
 });
 
-export const { setCity, addPreviousCity } = citySlice.actions;
+export const { setCurrentCity, addPreviousCity } = citySlice.actions;
 export default citySlice.reducer;

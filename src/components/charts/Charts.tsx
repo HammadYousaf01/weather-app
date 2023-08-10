@@ -27,11 +27,11 @@ const Charts: React.FC<Props> = ({ data }) => {
   );
 
   return (
-    <Card>
-      <StyledCityName variant="h3">{data?.city.name}</StyledCityName>
+    <Card elevation={1} sx={{ mt: 2, mx: 2 }}>
+      <StyledCityName variant="h4">{data?.city.name}</StyledCityName>
       <StyledChartsContainer>
         <Chart
-          chartLabel="Temprature"
+          chartLabel="Temprature C°"
           labels={labels}
           data={data?.list.map((forecast) =>
             convertKelvinToCelsius(forecast.main.temp)
@@ -46,6 +46,11 @@ const Charts: React.FC<Props> = ({ data }) => {
           chartLabel="Humidity"
           labels={labels}
           data={data?.list.map((forecast) => forecast.main.humidity)}
+        />
+        <Chart
+          chartLabel="Wind speed"
+          labels={labels}
+          data={data?.list.map((forecast) => forecast.wind.speed)}
         />
       </StyledChartsContainer>
     </Card>

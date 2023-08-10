@@ -4,8 +4,9 @@ import { Line } from "react-chartjs-2";
 
 const StyledChartContainer = styled(Box)<BoxProps>(() => ({
   margin: "0.5rem",
-  width: 450,
-  height: 230,
+  width: "48%",
+  minWidth: 450,
+  height: "100%",
 }));
 
 interface Props {

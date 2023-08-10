@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { useAppDispatch } from "store/hooks";
-import { addPreviousCity, setCity } from "store/slices/citySlice";
+import { setCurrentCity } from "store/slices/citySlice";
 import { setShowResult } from "store/slices/resultSlice";
 
 const StyledSearchButton = styled(Box)<BoxProps>(({ theme }) => ({
@@ -15,19 +15,16 @@ const StyledSearchButton = styled(Box)<BoxProps>(({ theme }) => ({
 
 interface Props {
   city: string;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchButton: React.FC<Props> = ({ city }) => {
+const SearchButton: React.FC<Props> = ({ city, setCity }) => {
   const dispatch = useAppDispatch();
 
   const handleOnClick = () => {
-    const newSearchCity = {
-      city,
-      searchedAt: new Date().toString(),
-    };
-    dispatch(setCity(city));
+    dispatch(setCurrentCity(city));
     dispatch(setShowResult(true));
-    dispatch(addPreviousCity(newSearchCity));
+    setCity("");
   };
 
   return (

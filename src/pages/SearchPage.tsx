@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 
-import History from "components/history";
-import Search from "components/search";
+import Nav from "components/nav";
 import Result from "components/result";
 import { useAppSelector } from "store/hooks";
 
@@ -10,8 +9,7 @@ const SearchPage: React.FC = () => {
 
   return (
     <Box>
-      <Search />
-      <History />
+      <Nav />
       {showResult && <Result />}
     </Box>
   );

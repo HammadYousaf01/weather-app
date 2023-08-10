@@ -1,17 +1,26 @@
-import CircularProgress from "@mui/material/CircularProgress";
+import { useEffect } from "react";
 
-import { useAppSelector } from "store/hooks";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useGetCityForcastQuery } from "api/apiSlice";
-import Charts from "components/charts/Charts";
+import { addPreviousCity } from "store/slices/citySlice";
+import History from "components/history";
+import Loading from "components/Loading";
 
 const Result: React.FC = () => {
+  const dispatch = useAppDispatch();
   const city = useAppSelector((state) => state.city.currentCity);
   const { data, isLoading, isError, error } = useGetCityForcastQuery(city);
 
-  if (isLoading) return <CircularProgress />;
-  if (isError) return <div>{error.data.message}</div>;
+  useEffect(() => {
+    if (data) {
+      dispatch(addPreviousCity(data));
+    }
+  }, [data]);
 
-  return <Charts data={data} />;
+  if (isLoading) return <Loading />;
+  if (isError) return <div>{(error as ApiError).data.message}</div>;
+
+  return <History />;
 };
 
 export default Result;
