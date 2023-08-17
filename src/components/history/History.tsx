@@ -1,5 +1,6 @@
-import HistoryItem from "./HistoryItem";
 import { useAppSelector } from "store/hooks";
+
+import HistoryItem from "./HistoryItem";
 
 const History: React.FC = () => {
   const previousCities = useAppSelector((state) => state.city.previousCities);

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "store/hooks";
 import { useGetCityForcastQuery } from "api/apiSlice";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { addPreviousCity } from "store/slices/citySlice";
+
 import History from "components/history";
 import Loading from "components/Loading";
 

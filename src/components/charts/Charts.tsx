@@ -1,8 +1,12 @@
 import { format } from "date-fns";
-import { styled } from "@mui/material";
-import Typography, { TypographyProps } from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import Box, { BoxProps } from "@mui/material/Box";
+import {
+  styled,
+  Box,
+  BoxProps,
+  Typography,
+  TypographyProps,
+  Card,
+} from "@mui/material";
 
 import Chart from "./Chart";
 
@@ -18,40 +22,47 @@ const StyledChartsContainer = styled(Box)<BoxProps>(() => ({
 }));
 
 interface Props {
-  data: ApiResponse | undefined;
+  data?: ApiResponse;
 }
 
 const Charts: React.FC<Props> = ({ data }) => {
-  const labels = data?.list.map((forecast) =>
+  const labels = data?.list?.map((forecast) =>
     getDateTimeLabel(forecast.dt_txt)
   );
+
+  const chartsData = [
+    {
+      title: "Temprature C°",
+      data: data?.list?.map((forecast) =>
+        convertKelvinToCelsius(forecast.main.temp)
+      ),
+    },
+    {
+      title: "Pressure",
+      data: data?.list?.map((forecast) => forecast.main.pressure),
+    },
+    {
+      title: "Humidity",
+      data: data?.list?.map((forecast) => forecast.main.humidity),
+    },
+    {
+      title: "Wind Speed",
+      data: data?.list?.map((forecast) => forecast.wind.speed),
+    },
+  ];
 
   return (
     <Card elevation={1} sx={{ mt: 2, mx: 2 }}>
       <StyledCityName variant="h4">{data?.city.name}</StyledCityName>
       <StyledChartsContainer>
-        <Chart
-          chartLabel="Temprature C°"
-          labels={labels}
-          data={data?.list.map((forecast) =>
-            convertKelvinToCelsius(forecast.main.temp)
-          )}
-        />
-        <Chart
-          chartLabel="Presure"
-          labels={labels}
-          data={data?.list.map((forecast) => forecast.main.pressure)}
-        />
-        <Chart
-          chartLabel="Humidity"
-          labels={labels}
-          data={data?.list.map((forecast) => forecast.main.humidity)}
-        />
-        <Chart
-          chartLabel="Wind speed"
-          labels={labels}
-          data={data?.list.map((forecast) => forecast.wind.speed)}
-        />
+        {chartsData.map((chartData, index) => (
+          <Chart
+            chartTitle={chartData.title}
+            labels={labels}
+            data={chartData.data}
+            key={index}
+          />
+        ))}
       </StyledChartsContainer>
     </Card>
   );

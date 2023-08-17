@@ -1,6 +1,8 @@
-import { styled } from "@mui/material";
-import Box, { BoxProps } from "@mui/material/Box";
+import { styled, Box, BoxProps } from "@mui/material";
 import { Line } from "react-chartjs-2";
+
+import { Chart as ChartJS, registerables } from "chart.js";
+ChartJS.register(...registerables);
 
 const StyledChartContainer = styled(Box)<BoxProps>(() => ({
   margin: "0.5rem",
@@ -10,30 +12,30 @@ const StyledChartContainer = styled(Box)<BoxProps>(() => ({
 }));
 
 interface Props {
-  chartLabel: string;
-  labels: string[] | undefined;
-  data: number[] | undefined;
+  chartTitle: string;
+  labels?: string[];
+  data?: number[];
 }
 
-const Chart: React.FC<Props> = ({ chartLabel, labels, data }) => {
+const Chart: React.FC<Props> = ({ chartTitle, labels, data }) => {
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: chartTitle,
+        data,
+      },
+    ],
+  };
+
+  const chartStyles: React.CSSProperties = {
+    minWidth: "100%",
+    minHeight: "100%",
+  };
+
   return (
     <StyledChartContainer>
-      <Line
-        datasetIdKey="id"
-        style={{
-          minWidth: "100%",
-          minHeight: "100%",
-        }}
-        data={{
-          labels: labels,
-          datasets: [
-            {
-              label: chartLabel,
-              data,
-            },
-          ],
-        }}
-      />
+      <Line datasetIdKey="id" style={chartStyles} data={chartData} />
     </StyledChartContainer>
   );
 };

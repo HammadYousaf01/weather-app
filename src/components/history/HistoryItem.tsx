@@ -1,7 +1,7 @@
 import Charts from "components/charts/Charts";
 
 interface Props {
-  data: ApiResponse | undefined;
+  data?: ApiResponse;
 }
 
 const HistoryItem: React.FC<Props> = ({ data }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { styled } from "@mui/material";
-import Box, { BoxProps } from "@mui/material/Box";
+import { styled, Box, BoxProps } from "@mui/material";
+
 import SearchBox from "./SearchBox";
 import SearchButton from "./SearchButton";
 
