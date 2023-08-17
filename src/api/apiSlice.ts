@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   endpoints: (builder) => ({
-    getCityForcast: builder.query<ApiResponse, string>({
+    getCityForcast: builder.query<ApiResponse, any>({
       query: (cityName) => ({
         url: "/",
         params: {
@@ -14,7 +14,22 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    getLatitudeLongitudeForecast: builder.query<ApiResponse, string>({
+      query: (latLong) => {
+        const [lat, lon] = latLong.split(",");
+
+        return {
+          url: "/",
+          params: {
+            lat,
+            lon,
+            appid: API_KEY,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetCityForcastQuery } = apiSlice;
+export const { useGetCityForcastQuery, useGetLatitudeLongitudeForecastQuery } =
+  apiSlice;

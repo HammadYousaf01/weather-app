@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import CurrentCityWeather from "components/CurrentCityWeather";
 
 import Nav from "components/nav";
 import Result from "components/result";
@@ -11,6 +12,7 @@ const SearchPage: React.FC = () => {
     <Box>
       <Nav />
       {showResult && <Result />}
+      <CurrentCityWeather />
     </Box>
   );
 };
