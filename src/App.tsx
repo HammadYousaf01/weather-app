@@ -1,11 +1,16 @@
-import Container from "@mui/material/Container";
-import { SearchPage } from "./pages";
+import Nav from "components/nav";
+import Result from "components/result";
+
+import { useAppSelector } from "store/hooks";
 
 const App: React.FC = () => {
+  const showResult = useAppSelector((state) => state.result.showResult);
+
   return (
-    <Container>
-      <SearchPage />
-    </Container>
+    <div>
+      <Nav />
+      {showResult && <Result />}
+    </div>
   );
 };
 

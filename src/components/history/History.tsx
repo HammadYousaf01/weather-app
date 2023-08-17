@@ -1,14 +1,16 @@
+import { useAppSelector } from "store/hooks";
+
 import HistoryItem from "./HistoryItem";
 
 const History: React.FC = () => {
-  const tempCityNames = ["Abc", "Xyz", "New York"];
+  const previousCities = useAppSelector((state) => state.city.previousCities);
 
   return (
-    <div>
-      {tempCityNames.map((city: string) => (
-        <HistoryItem city={city} />
+    <>
+      {previousCities.map((cityData) => (
+        <HistoryItem data={cityData} key={cityData.city.id} />
       ))}
-    </div>
+    </>
   );
 };
 

@@ -1,13 +1,11 @@
+import Charts from "components/charts/Charts";
+
 interface Props {
-  city: string;
+  data?: ApiResponse;
 }
 
-const HistoryItem: React.FC<Props> = ({ city }) => {
-  return (
-    <div>
-      <p>{city}</p>
-    </div>
-  );
+const HistoryItem: React.FC<Props> = ({ data }) => {
+  return <Charts data={data} />;
 };
 
 export default HistoryItem;
