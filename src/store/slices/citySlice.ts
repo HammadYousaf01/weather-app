@@ -4,7 +4,7 @@ export const citySlice = createSlice({
   name: "searchCity",
   initialState: {
     currentCity: "",
-    previousCities: [] as ApiResponse[],
+    searchedCities: [] as ApiResponse[],
     showSearchedCities: false,
   },
   reducers: {
@@ -16,12 +16,12 @@ export const citySlice = createSlice({
       state.showSearchedCities = action.payload;
     },
 
-    addPreviousCity: (state, action) => {
-      state.previousCities.unshift(action.payload);
+    addSearchedCity: (state, action) => {
+      state.searchedCities.unshift(action.payload);
     },
 
-    clearPreviousCities: (state) => {
-      state.previousCities = [];
+    clearSearchedCities: (state) => {
+      state.searchedCities = [];
     },
   },
 });
@@ -29,7 +29,7 @@ export const citySlice = createSlice({
 export const {
   setCurrentCity,
   setShowSearchedCities,
-  addPreviousCity,
-  clearPreviousCities,
+  addSearchedCity,
+  clearSearchedCities,
 } = citySlice.actions;
 export default citySlice.reducer;

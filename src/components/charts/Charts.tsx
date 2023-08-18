@@ -2,10 +2,15 @@ import { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { format } from "date-fns";
-import { styled } from "@mui/material";
-import Typography, { TypographyProps } from "@mui/material/Typography";
-import Box, { BoxProps } from "@mui/material/Box";
-import Card from "@mui/material/Card";
+
+import {
+  styled,
+  Box,
+  BoxProps,
+  Typography,
+  TypographyProps,
+  Card,
+} from "@mui/material";
 
 import Chart from "./Chart";
 
@@ -21,15 +26,36 @@ const StyledChartsContainer = styled(Box)<BoxProps>(() => ({
 }));
 
 interface Props {
-  data: ApiResponse | undefined;
+  data?: ApiResponse;
 }
 
 const Charts: React.FC<Props> = ({ data }) => {
-  const labels = data?.list.map((forecast) =>
+  const labels = data?.list?.map((forecast) =>
     getDateTimeLabel(forecast.dt_txt)
   );
 
   const [orders, setOrders] = useState([1, 2, 3, 4]);
+
+  const chartsData = [
+    {
+      title: "Temprature C°",
+      data: data?.list?.map((forecast) =>
+        convertKelvinToCelsius(forecast.main.temp)
+      ),
+    },
+    {
+      title: "Pressure",
+      data: data?.list?.map((forecast) => forecast.main.pressure),
+    },
+    {
+      title: "Humidity",
+      data: data?.list?.map((forecast) => forecast.main.humidity),
+    },
+    {
+      title: "Wind Speed",
+      data: data?.list?.map((forecast) => forecast.wind.speed),
+    },
+  ];
 
   const handleOnDrop = (dragIndex: number, dropIndex: number) => {
     const dragIndexValue = orders[dragIndex];
@@ -43,7 +69,18 @@ const Charts: React.FC<Props> = ({ data }) => {
       <Card elevation={1} sx={{ mt: 2, mx: 2 }}>
         <StyledCityName variant="h4">{data?.city.name}</StyledCityName>
         <StyledChartsContainer>
-          <Chart
+          {chartsData.map((chartData, index) => (
+            <Chart
+              chartTitle={chartData.title}
+              labels={labels}
+              data={chartData.data}
+              key={index}
+              index={index}
+              order={orders[index]}
+              handleOnDrop={handleOnDrop}
+            />
+          ))}
+          {/* <Chart
             chartLabel="Temprature C°"
             labels={labels}
             data={data?.list.map((forecast) =>
@@ -76,10 +113,47 @@ const Charts: React.FC<Props> = ({ data }) => {
             order={orders[3]}
             index={3}
             handleOnDrop={handleOnDrop}
-          />
+          /> */}
         </StyledChartsContainer>
       </Card>
     </DndProvider>
+    // =======
+    //   const chartsData = [
+    //     {
+    //       title: "Temprature C°",
+    //       data: data?.list?.map((forecast) =>
+    //         convertKelvinToCelsius(forecast.main.temp)
+    //       ),
+    //     },
+    //     {
+    //       title: "Pressure",
+    //       data: data?.list?.map((forecast) => forecast.main.pressure),
+    //     },
+    //     {
+    //       title: "Humidity",
+    //       data: data?.list?.map((forecast) => forecast.main.humidity),
+    //     },
+    //     {
+    //       title: "Wind Speed",
+    //       data: data?.list?.map((forecast) => forecast.wind.speed),
+    //     },
+    //   ];
+
+    //   return (
+    //     <Card elevation={1} sx={{ mt: 2, mx: 2 }}>
+    //       <StyledCityName variant="h4">{data?.city.name}</StyledCityName>
+    //       <StyledChartsContainer>
+    //         {chartsData.map((chartData, index) => (
+    //           <Chart
+    //             chartTitle={chartData.title}
+    //             labels={labels}
+    //             data={chartData.data}
+    //             key={index}
+    //           />
+    //         ))}
+    //       </StyledChartsContainer>
+    //     </Card>
+    // >>>>>>> cbb3c38c426fcba051bc22e9d08b011fcd1919d1
   );
 };
 

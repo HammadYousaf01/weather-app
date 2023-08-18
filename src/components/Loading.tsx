@@ -1,6 +1,4 @@
-import CircularProgress from "@mui/material/CircularProgress";
-import Box, { BoxProps } from "@mui/material/Box";
-import { styled } from "@mui/material";
+import { styled, CircularProgress, Box, BoxProps } from "@mui/material";
 
 const StyledLoading = styled(Box)<BoxProps>(() => ({
   display: "flex",

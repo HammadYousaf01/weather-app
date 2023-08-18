@@ -1,8 +1,8 @@
 import {
+  styled,
   Typography,
   TypographyProps,
   AppBar,
-  styled,
   AppBarProps,
 } from "@mui/material";
 

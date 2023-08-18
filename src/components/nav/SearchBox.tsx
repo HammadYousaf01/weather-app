@@ -1,5 +1,4 @@
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-import { styled } from "@mui/material";
+import { styled, TextField, TextFieldProps } from "@mui/material";
 
 const StyledTextField = styled(TextField)<TextFieldProps>(() => ({
   "& .MuiInputBase-root": {

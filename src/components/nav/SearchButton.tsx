@@ -1,6 +1,4 @@
-import { styled } from "@mui/material";
-import Box, { BoxProps } from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
+import { styled, Box, BoxProps, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { useAppDispatch } from "store/hooks";

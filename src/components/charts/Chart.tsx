@@ -1,5 +1,4 @@
-import { styled } from "@mui/material";
-import Box, { BoxProps } from "@mui/material/Box";
+import { styled, Box, BoxProps } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import { useDrag, useDrop } from "react-dnd";
 import Resizable from "./Resizable";
@@ -7,6 +6,9 @@ import Resizable from "./Resizable";
 export enum DndItemTypes {
   Chart = "Chart",
 }
+
+import { Chart as ChartJS, registerables } from "chart.js";
+ChartJS.register(...registerables);
 
 const StyledChartContainer = styled(Box)<BoxProps>(() => ({
   margin: "0.5rem",
@@ -17,8 +19,13 @@ const StyledChartContainer = styled(Box)<BoxProps>(() => ({
   justifyContent: "center",
 }));
 
+const StyledDragContainer = styled(Box)<BoxProps>(() => ({
+  width: "100%",
+  height: "100%",
+}));
+
 interface Props {
-  chartLabel: string;
+  chartTitle: string;
   labels: string[] | undefined;
   data: number[] | undefined;
   order: number;
@@ -27,7 +34,7 @@ interface Props {
 }
 
 const Chart: React.FC<Props> = ({
-  chartLabel,
+  chartTitle,
   labels,
   data,
   order,
@@ -47,33 +54,27 @@ const Chart: React.FC<Props> = ({
     },
   }));
 
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: chartTitle,
+        data,
+      },
+    ],
+  };
+
+  const chartStyles: React.CSSProperties = {
+    minWidth: "100%",
+    minHeight: "100%",
+  };
+
   return (
     <StyledChartContainer sx={{ order }} ref={drop}>
       <Resizable>
-        <Box
-          ref={drag}
-          sx={{
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Line
-            datasetIdKey="id"
-            style={{
-              minWidth: "100%",
-              minHeight: "100%",
-            }}
-            data={{
-              labels: labels,
-              datasets: [
-                {
-                  label: chartLabel,
-                  data,
-                },
-              ],
-            }}
-          />
-        </Box>
+        <StyledDragContainer ref={drag}>
+          <Line datasetIdKey="id" style={chartStyles} data={chartData} />
+        </StyledDragContainer>
       </Resizable>
     </StyledChartContainer>
   );

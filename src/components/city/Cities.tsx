@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "store/hooks";
-import { addPreviousCity } from "store/slices/citySlice";
+import { addSearchedCity } from "store/slices/citySlice";
 
 import { useGetCityForcastQuery } from "api/apiSlice";
-import History from "components/history";
+
 import Loading from "components/Loading";
+import SearchedCities from "./SearchedCities";
 
 const Cities: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -14,14 +15,14 @@ const Cities: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      dispatch(addPreviousCity(data));
+      dispatch(addSearchedCity(data));
     }
   }, [data]);
 
   if (isLoading) return <Loading />;
   if (isError) return <div>{(error as ApiError).data.message}</div>;
 
-  return <History />;
+  return <SearchedCities />;
 };
 
 export default Cities;
