@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "api/apiSlice";
-import { cityReducer, resultReducer } from "./slices";
+import { cityReducer } from "./slices";
 
 const store = configureStore({
   reducer: {
-    result: resultReducer,
     city: cityReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },

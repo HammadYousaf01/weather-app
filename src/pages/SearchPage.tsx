@@ -1,18 +1,19 @@
 import { Box } from "@mui/material";
-import CurrentCityWeather from "components/CurrentCityWeather";
 
 import Nav from "components/nav";
-import Result from "components/result";
+import Cities, { CurrentCity } from "components/city";
+
 import { useAppSelector } from "store/hooks";
 
 const SearchPage: React.FC = () => {
-  const showResult = useAppSelector((state) => state.result.showResult);
+  const showSearchedCities = useAppSelector(
+    (state) => state.city.showSearchedCities
+  );
 
   return (
     <Box>
       <Nav />
-      {showResult && <Result />}
-      <CurrentCityWeather />
+      {showSearchedCities ? <Cities /> : <CurrentCity />}
     </Box>
   );
 };

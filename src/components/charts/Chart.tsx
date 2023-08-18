@@ -2,6 +2,7 @@ import { styled } from "@mui/material";
 import Box, { BoxProps } from "@mui/material/Box";
 import { Line } from "react-chartjs-2";
 import { useDrag, useDrop } from "react-dnd";
+import Resizable from "./Resizable";
 
 export enum DndItemTypes {
   Chart = "Chart",
@@ -12,6 +13,8 @@ const StyledChartContainer = styled(Box)<BoxProps>(() => ({
   width: "48%",
   minWidth: 450,
   height: "100%",
+  display: "flex",
+  justifyContent: "center",
 }));
 
 interface Props {
@@ -46,24 +49,32 @@ const Chart: React.FC<Props> = ({
 
   return (
     <StyledChartContainer sx={{ order }} ref={drop}>
-      <div ref={drag}>
-        <Line
-          datasetIdKey="id"
-          style={{
-            minWidth: "100%",
-            minHeight: "100%",
+      <Resizable>
+        <Box
+          ref={drag}
+          sx={{
+            width: "100%",
+            height: "100%",
           }}
-          data={{
-            labels: labels,
-            datasets: [
-              {
-                label: chartLabel,
-                data,
-              },
-            ],
-          }}
-        />
-      </div>
+        >
+          <Line
+            datasetIdKey="id"
+            style={{
+              minWidth: "100%",
+              minHeight: "100%",
+            }}
+            data={{
+              labels: labels,
+              datasets: [
+                {
+                  label: chartLabel,
+                  data,
+                },
+              ],
+            }}
+          />
+        </Box>
+      </Resizable>
     </StyledChartContainer>
   );
 };
