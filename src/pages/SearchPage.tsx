@@ -1,8 +1,6 @@
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
-import Nav from "components/nav";
 import Cities, { CurrentCity } from "components/city";
-
 import { useAppSelector } from "store/hooks";
 
 const SearchPage: React.FC = () => {
@@ -10,12 +8,7 @@ const SearchPage: React.FC = () => {
     (state) => state.city.showSearchedCities
   );
 
-  return (
-    <Box>
-      <Nav />
-      {showSearchedCities ? <Cities /> : <CurrentCity />}
-    </Box>
-  );
+  return <Box>{showSearchedCities ? <Cities /> : <CurrentCity />}</Box>;
 };
 
 export default SearchPage;

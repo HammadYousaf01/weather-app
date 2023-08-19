@@ -1,5 +1,4 @@
-import { ThemeProvider, CssBaseline } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { getColorPalette } from "./theme";
 import { createContext, useState } from "react";
 
