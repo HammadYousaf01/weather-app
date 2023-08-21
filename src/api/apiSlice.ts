@@ -1,16 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_KEY, API_BASE_URL } from "src/config";
+import { WEATHER_API_KEY, WEATHER_API_BASE_URL } from "src/config";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: WEATHER_API_BASE_URL }),
   endpoints: (builder) => ({
-    getCityForcast: builder.query<ApiResponse, any>({
+    getCityForcast: builder.query<ApiResponse, string>({
       query: (cityName) => ({
         url: "/",
         params: {
           q: cityName,
-          appid: API_KEY,
+          appid: WEATHER_API_KEY,
         },
       }),
     }),
@@ -23,7 +23,7 @@ export const apiSlice = createApi({
           params: {
             lat,
             lon,
-            appid: API_KEY,
+            appid: WEATHER_API_KEY,
           },
         };
       },

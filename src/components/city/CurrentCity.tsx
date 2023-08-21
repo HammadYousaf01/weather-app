@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import CurrentCityChart from "./CurrentCityChart";
+import CurrentCityChartWrapper from "./CurrentCityChartWrapper";
 
 const CurrentCityWeather: React.FC = () => {
   const [{ latitude, longitude }, setCoordinates] = useState({
@@ -19,7 +19,7 @@ const CurrentCityWeather: React.FC = () => {
   }, []);
 
   // if (latitude && longitude) {
-  return <CurrentCityChart latitude={latitude} longitude={longitude} />;
+  return <CurrentCityChartWrapper latitude={latitude} longitude={longitude} />;
   // }
 
   // return <Loading />;
