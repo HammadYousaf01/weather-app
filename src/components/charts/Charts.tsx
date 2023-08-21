@@ -80,80 +80,9 @@ const Charts: React.FC<Props> = ({ data }) => {
               handleOnDrop={handleOnDrop}
             />
           ))}
-          {/* <Chart
-            chartLabel="Temprature C°"
-            labels={labels}
-            data={data?.list.map((forecast) =>
-              convertKelvinToCelsius(forecast.main.temp)
-            )}
-            order={orders[0]}
-            index={0}
-            handleOnDrop={handleOnDrop}
-          />
-          <Chart
-            chartLabel="Presure"
-            labels={labels}
-            data={data?.list.map((forecast) => forecast.main.pressure)}
-            order={orders[1]}
-            index={1}
-            handleOnDrop={handleOnDrop}
-          />
-          <Chart
-            chartLabel="Humidity"
-            labels={labels}
-            data={data?.list.map((forecast) => forecast.main.humidity)}
-            order={orders[2]}
-            index={2}
-            handleOnDrop={handleOnDrop}
-          />
-          <Chart
-            chartLabel="Wind speed"
-            labels={labels}
-            data={data?.list.map((forecast) => forecast.wind.speed)}
-            order={orders[3]}
-            index={3}
-            handleOnDrop={handleOnDrop}
-          /> */}
         </StyledChartsContainer>
       </Card>
     </DndProvider>
-    // =======
-    //   const chartsData = [
-    //     {
-    //       title: "Temprature C°",
-    //       data: data?.list?.map((forecast) =>
-    //         convertKelvinToCelsius(forecast.main.temp)
-    //       ),
-    //     },
-    //     {
-    //       title: "Pressure",
-    //       data: data?.list?.map((forecast) => forecast.main.pressure),
-    //     },
-    //     {
-    //       title: "Humidity",
-    //       data: data?.list?.map((forecast) => forecast.main.humidity),
-    //     },
-    //     {
-    //       title: "Wind Speed",
-    //       data: data?.list?.map((forecast) => forecast.wind.speed),
-    //     },
-    //   ];
-
-    //   return (
-    //     <Card elevation={1} sx={{ mt: 2, mx: 2 }}>
-    //       <StyledCityName variant="h4">{data?.city.name}</StyledCityName>
-    //       <StyledChartsContainer>
-    //         {chartsData.map((chartData, index) => (
-    //           <Chart
-    //             chartTitle={chartData.title}
-    //             labels={labels}
-    //             data={chartData.data}
-    //             key={index}
-    //           />
-    //         ))}
-    //       </StyledChartsContainer>
-    //     </Card>
-    // >>>>>>> cbb3c38c426fcba051bc22e9d08b011fcd1919d1
   );
 };
 
