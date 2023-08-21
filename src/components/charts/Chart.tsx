@@ -49,7 +49,6 @@ const Chart: React.FC<Props> = ({
   const [, drop] = useDrop(() => ({
     accept: DndItemTypes.Chart,
     drop: (item: { index: number }) => {
-      console.log(item.index, index);
       handleOnDrop(item.index, index);
     },
   }));

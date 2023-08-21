@@ -11,7 +11,7 @@ const CurrentCityChart: React.FC<Props> = ({ cityName }) => {
   const { data, isLoading, isError, error } = useGetCityForcastQuery(cityName);
 
   if (isLoading) return <Loading />;
-  if (isError) return <div>{error as string}</div>;
+  if (isError) return <div>{(error as ApiError).data.message}</div>;
 
   return <Charts data={data} />;
 };

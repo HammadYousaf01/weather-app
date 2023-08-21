@@ -15,6 +15,7 @@
     "@fontsource/roboto": "^5.0.7",
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
+    "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^1.9.5",
     "chart.js": "^4.3.3",
     "date-fns": "^2.30.0",
@@ -29,6 +30,7 @@
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
+    "@types/google.maps": "^3.53.6",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/react-resizable": "^3.0.4",
