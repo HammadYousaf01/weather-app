@@ -3,5 +3,3 @@ export const MAPS_API_KEY = import.meta.env.VITE_MAPS_API_KEY as string;
 
 export const WEATHER_API_BASE_URL =
   "https://api.openweathermap.org/data/2.5/forecast";
-export const MAPS_API_BASE_URL =
-  "https://maps.googleapis.com/maps/api/geocode/json";

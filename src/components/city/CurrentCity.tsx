@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import CityChart from "./CityChart";
+import Info from "components/Info";
 
 const CurrentCity: React.FC = () => {
   const [cityName, setCityName] = useState("");
@@ -24,7 +25,9 @@ const CurrentCity: React.FC = () => {
 
   if (!cityName) {
     return (
-      <div>Please Enable Location to get the weather forecast of your area</div>
+      <Info>
+        Please Enable Location to get the weather forecast of your area
+      </Info>
     );
   }
 

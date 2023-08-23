@@ -1,4 +1,3 @@
-import Cities from "./Cities";
-
 export { default as CurrentCity } from "./CurrentCity";
-export default Cities;
+export { default as SearchedCities } from "./SearchedCities";
+export { default as ComparedCities } from "./ComparedCities";

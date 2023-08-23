@@ -1,22 +1,15 @@
-import Loading from "components/Loading";
 import { useAppSelector } from "store/hooks";
-import { useGetCitiesForecastQuery } from "api/apiSlice";
-import MultiCityCharts from "components/charts/MultiCityCharts";
+import { ComparedCities } from "components/city";
+import Info from "components/Info";
 
 const ComparePage: React.FC = () => {
-  const comparedCities = useAppSelector((state) => state.city.comparedCities);
+  const searchedCities = useAppSelector((state) => state.city.searchedCities);
 
-  if (comparedCities.length < 1) {
-    return <div>Please Search cities to compare</div>;
+  if (searchedCities.length < 1) {
+    return <Info>Please Search cities to compare</Info>;
   }
 
-  const { data, isLoading, isError, error } =
-    useGetCitiesForecastQuery(comparedCities);
-
-  if (isLoading) return <Loading />;
-  if (isError) return <div>{(error as ApiError).data.message}</div>;
-
-  return <MultiCityCharts citiesData={data} />;
+  return <ComparedCities searchedCities={searchedCities} />;
 };
 
 export default ComparePage;

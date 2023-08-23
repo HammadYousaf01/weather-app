@@ -2,7 +2,7 @@ import { styled, Box, BoxProps, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { useAppDispatch } from "store/hooks";
-import { setCurrentCity, setShowSearchedCities } from "store/slices/citySlice";
+import { addSearchedCity } from "store/slices/citySlice";
 
 const StyledSearchButton = styled(Box)<BoxProps>(({ theme }) => ({
   border: `1px solid ${theme.palette.grey[500]}`,
@@ -19,8 +19,7 @@ const SearchButton: React.FC<Props> = ({ city, setCity }) => {
   const dispatch = useAppDispatch();
 
   const handleOnClick = () => {
-    dispatch(setCurrentCity(city));
-    dispatch(setShowSearchedCities(true));
+    dispatch(addSearchedCity(city));
     setCity("");
   };
 

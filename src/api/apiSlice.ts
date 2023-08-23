@@ -36,26 +36,7 @@ export const apiSlice = createApi({
         return { data: citiesData };
       },
     }),
-
-    getLatitudeLongitudeForecast: builder.query<ApiResponse, string>({
-      query: (latLong) => {
-        const [lat, lon] = latLong.split(",");
-
-        return {
-          url: "/",
-          params: {
-            lat,
-            lon,
-            appid: WEATHER_API_KEY,
-          },
-        };
-      },
-    }),
   }),
 });
 
-export const {
-  useGetCityForecastQuery,
-  useGetCitiesForecastQuery,
-  useGetLatitudeLongitudeForecastQuery,
-} = apiSlice;
+export const { useGetCityForecastQuery, useGetCitiesForecastQuery } = apiSlice;

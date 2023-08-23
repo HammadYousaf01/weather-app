@@ -1,14 +1,29 @@
 import Box from "@mui/material/Box";
 
-import Charts from "components/charts";
-import { useAppSelector } from "store/hooks";
+import { useGetCitiesForecastQuery } from "api/apiSlice";
 
-const SearchedCities: React.FC = () => {
-  const searchedCities = useAppSelector((state) => state.city.searchedCities);
+import Info from "components/Info";
+import Loading from "components/Loading";
+import Charts from "components/charts";
+
+interface Props {
+  searchedCities: string[];
+}
+
+const SearchedCities: React.FC<Props> = ({ searchedCities }) => {
+  const {
+    data: citiesData,
+    isLoading,
+    isError,
+    error,
+  } = useGetCitiesForecastQuery(searchedCities);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <Info error>{(error as ApiError).data.message}</Info>;
 
   return (
     <Box>
-      {searchedCities.map((cityData) => (
+      {citiesData?.map((cityData) => (
         <Charts data={cityData} key={cityData.city.id} />
       ))}
     </Box>
