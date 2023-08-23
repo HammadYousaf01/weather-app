@@ -7,7 +7,7 @@ interface Props {
   cityName: string;
 }
 
-const CurrentCityChart: React.FC<Props> = ({ cityName }) => {
+const CityChart: React.FC<Props> = ({ cityName }) => {
   const { data, isLoading, isError, error } = useGetCityForcastQuery(cityName);
 
   if (isLoading) return <Loading />;
@@ -16,4 +16,4 @@ const CurrentCityChart: React.FC<Props> = ({ cityName }) => {
   return <Charts data={data} />;
 };
 
-export default CurrentCityChart;
+export default CityChart;

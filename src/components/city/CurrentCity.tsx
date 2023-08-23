@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
-import CurrentCityChart from "./CurrentCityChart";
+import CityChart from "./CityChart";
+import { geocodeCityFromLatLong } from "./utils";
 
-const CurrentCityWeather: React.FC = () => {
+const CurrentCity: React.FC = () => {
   const [cityName, setCityName] = useState("");
 
   useEffect(() => {
@@ -12,20 +13,15 @@ const CurrentCityWeather: React.FC = () => {
       const geocoder = new window.google.maps.Geocoder();
       const latlng = new window.google.maps.LatLng(latitude, longitude);
 
-      geocoder.geocode({ location: latlng }, (result, status) => {
+      geocoder.geocode({ location: latlng }, (results, status) => {
         if (status === "OK") {
-          if (result !== null) {
-            const results = result[0].address_components;
-
-            const cityName = results.filter(
-              (result) =>
-                result.types.includes("locality") &&
-                result.types.includes("political")
-            );
-            setCityName(cityName[0].long_name);
+          if (results !== null) {
+            setCityName(filterCityName(results));
           }
         }
       });
+      // setCityName(geocodeCityFromLatLong(latitude, longitude));
+      // console.log(geocodeCityFromLatLong(latitude, longitude));
     });
   }, []);
 
@@ -35,7 +31,19 @@ const CurrentCityWeather: React.FC = () => {
     );
   }
 
-  return <CurrentCityChart cityName={cityName} />;
+  return <CityChart cityName={cityName} />;
 };
 
-export default CurrentCityWeather;
+export const filterCityName = (
+  results: google.maps.GeocoderResult[]
+): string => {
+  const singleResultsEntry = results[0].address_components;
+
+  const cityName = singleResultsEntry.filter(
+    (result) =>
+      result.types.includes("locality") && result.types.includes("political")
+  );
+  return cityName[0].long_name;
+};
+
+export default CurrentCity;

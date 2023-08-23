@@ -5,11 +5,16 @@ export const citySlice = createSlice({
   initialState: {
     currentCity: "",
     searchedCities: [] as ApiResponse[],
+    comparedCities: [] as string[],
     showSearchedCities: false,
   },
   reducers: {
     setCurrentCity: (state, action) => {
       state.currentCity = action.payload;
+    },
+
+    setComparedCities: (state, action) => {
+      state.comparedCities.unshift(action.payload);
     },
 
     setShowSearchedCities: (state, action) => {
@@ -28,6 +33,7 @@ export const citySlice = createSlice({
 
 export const {
   setCurrentCity,
+  setComparedCities,
   setShowSearchedCities,
   addSearchedCity,
   clearSearchedCities,

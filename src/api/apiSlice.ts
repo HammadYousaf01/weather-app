@@ -14,6 +14,29 @@ export const apiSlice = createApi({
         },
       }),
     }),
+
+    getCitiesForecast: builder.query<ApiResponse[], string[]>({
+      async queryFn(cities, _queryApi, _extraOptions, fetchWithBQ) {
+        const citiesData: ApiResponse[] = [];
+
+        for (const city of cities) {
+          const cityResult = await fetchWithBQ({
+            url: "/",
+            params: {
+              q: city,
+              appid: WEATHER_API_KEY,
+            },
+          });
+
+          if (cityResult.error) {
+            return { error: cityResult.error as ApiError };
+          }
+          citiesData.push(cityResult.data as ApiResponse);
+        }
+        return { data: citiesData };
+      },
+    }),
+
     getLatitudeLongitudeForecast: builder.query<ApiResponse, string>({
       query: (latLong) => {
         const [lat, lon] = latLong.split(",");
@@ -31,5 +54,8 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useGetCityForcastQuery, useGetLatitudeLongitudeForecastQuery } =
-  apiSlice;
+export const {
+  useGetCityForcastQuery,
+  useGetCitiesForecastQuery,
+  useGetLatitudeLongitudeForecastQuery,
+} = apiSlice;

@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import { ComparePage, SearchPage } from "./pages";
+import { ComparePage, MapPage, SearchPage } from "./pages";
 import Root from "./Root";
 
 const App: React.FC = () => {
@@ -14,6 +14,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Root />}>
         <Route index element={<SearchPage />} />
         <Route path="/compare" element={<ComparePage />} />
+        <Route path="/map" element={<MapPage />} />
       </Route>
     )
   );
