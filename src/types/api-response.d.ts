@@ -2,7 +2,7 @@ interface ApiResponse {
   cod: string;
   message: number;
   cnt: 40;
-  list: Forcast[];
+  list: Forecast[];
   city: City;
 }
 

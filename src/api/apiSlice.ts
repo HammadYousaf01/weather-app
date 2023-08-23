@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: WEATHER_API_BASE_URL }),
   endpoints: (builder) => ({
-    getCityForcast: builder.query<ApiResponse, string>({
+    getCityForecast: builder.query<ApiResponse, string>({
       query: (cityName) => ({
         url: "/",
         params: {
@@ -55,7 +55,7 @@ export const apiSlice = createApi({
 });
 
 export const {
-  useGetCityForcastQuery,
+  useGetCityForecastQuery,
   useGetCitiesForecastQuery,
   useGetLatitudeLongitudeForecastQuery,
 } = apiSlice;

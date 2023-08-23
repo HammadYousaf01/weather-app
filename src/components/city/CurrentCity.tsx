@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import CityChart from "./CityChart";
-import { geocodeCityFromLatLong } from "./utils";
 
 const CurrentCity: React.FC = () => {
   const [cityName, setCityName] = useState("");
@@ -20,8 +19,6 @@ const CurrentCity: React.FC = () => {
           }
         }
       });
-      // setCityName(geocodeCityFromLatLong(latitude, longitude));
-      // console.log(geocodeCityFromLatLong(latitude, longitude));
     });
   }, []);
 
