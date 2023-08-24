@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import CityChart from "./CityChart";
 import Info from "components/Info";
+import { geocodeLatLng } from "components/utils";
+
+import { CoordinatesContext } from "src/context/CoordinatesContext";
 
 const CurrentCity: React.FC = () => {
   const [cityName, setCityName] = useState("");
 
+  const { latitude, longitude } = useContext(CoordinatesContext);
+
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((location) => {
-      const { latitude, longitude } = location.coords;
-
-      const geocoder = new window.google.maps.Geocoder();
-      const latlng = new window.google.maps.LatLng(latitude, longitude);
-
-      geocoder.geocode({ location: latlng }, (results, status) => {
-        if (status === "OK") {
-          if (results !== null) {
-            setCityName(filterCityName(results));
-          }
-        }
-      });
-    });
-  }, []);
+    (async () => {
+      setCityName(await geocodeLatLng(latitude, longitude));
+    })();
+  }, [latitude, longitude]);
 
   if (!cityName) {
     return (
@@ -32,18 +26,6 @@ const CurrentCity: React.FC = () => {
   }
 
   return <CityChart cityName={cityName} />;
-};
-
-export const filterCityName = (
-  results: google.maps.GeocoderResult[]
-): string => {
-  const singleResultsEntry = results[0].address_components;
-
-  const cityName = singleResultsEntry.filter(
-    (result) =>
-      result.types.includes("locality") && result.types.includes("political")
-  );
-  return cityName[0].long_name;
 };
 
 export default CurrentCity;

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Box, BoxProps, Card, styled } from "@mui/material";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Box, BoxProps, styled } from "@mui/material";
 
 import Resizable from "components/charts/Resizable";
-import { filterCityName } from "components/city/CurrentCity";
 import CityChart from "components/city/CityChart";
+import { geocodeLatLng } from "components/utils";
+import { CoordinatesContext } from "src/context/CoordinatesContext";
 
 const StyledMapContainer = styled(Box)<BoxProps>(() => ({
   height: "100%",
@@ -15,47 +16,37 @@ const StyledMapContainer = styled(Box)<BoxProps>(() => ({
 
 const MapPage: React.FC = () => {
   const [cityName, setCityName] = useState("");
-  // const [{ latitude, longitude }, setCoordinates] = useState({
-  //   latitude: 0,
-  //   longitude: 0,
-  // });
+  const { latitude, longitude } = useContext(CoordinatesContext);
+
   const mapRef = useRef<HTMLElement>();
 
   useEffect(() => {
-    const mapOptions: google.maps.MapOptions = {
-      center: { lat: 0, lng: 0 },
-      zoom: 10,
-    };
+    (async () => {
+      setCityName(await geocodeLatLng(latitude, longitude));
+      const mapOptions: google.maps.MapOptions = {
+        center: { lat: latitude, lng: longitude },
+        zoom: 10,
+      };
 
-    const mapInstance = new google.maps.Map(mapRef.current!, mapOptions);
-
-    google.maps.event.addListener(mapInstance, "click", (event) => {
+      const map = new google.maps.Map(mapRef.current!, mapOptions);
       new google.maps.Marker({
-        position: event.latLng,
-        map: mapInstance,
+        position: new window.google.maps.LatLng(latitude, longitude),
+        map: map,
       });
 
-      const latitude = event.latLng.lat();
-      const longitude = event.latLng.lng();
+      google.maps.event.addListener(map, "click", async (event: any) => {
+        new google.maps.Marker({
+          position: event.latLng,
+          map: map,
+        });
 
-      //   setCoordinates({
-      //     latitude,
-      //     longitude,
-      //   });
+        const latitude = event.latLng.lat();
+        const longitude = event.latLng.lng();
 
-      const geocoder = new window.google.maps.Geocoder();
-      const latlng = new window.google.maps.LatLng(latitude, longitude);
-
-      geocoder.geocode({ location: latlng }, (results, status) => {
-        if (status === "OK") {
-          if (results !== null) {
-            setCityName(filterCityName(results));
-          }
-        }
+        setCityName(await geocodeLatLng(latitude, longitude));
       });
-      scrollTo;
-    });
-  }, []);
+    })();
+  }, [latitude, longitude]);
 
   return (
     <Box>
@@ -64,7 +55,6 @@ const MapPage: React.FC = () => {
           <Box style={{ width: "100%", height: "100%" }} ref={mapRef} />
         </Resizable>
       </StyledMapContainer>
-
       <CityChart cityName={cityName} />
     </Box>
   );
