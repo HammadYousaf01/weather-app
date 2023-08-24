@@ -1,12 +1,8 @@
-import {
-  styled,
-  Typography,
-  TypographyProps,
-  AppBar,
-  AppBarProps,
-} from "@mui/material";
+import { styled, AppBar, AppBarProps } from "@mui/material";
 
 import Search from "./Search";
+import NavLinks from "./NavLinks";
+import AppTitle from "./AppTitle";
 
 const StyledAppBar = styled(AppBar)<AppBarProps>(() => ({
   backgroundColor: "white",
@@ -15,16 +11,12 @@ const StyledAppBar = styled(AppBar)<AppBarProps>(() => ({
   padding: "0.5rem",
 }));
 
-const StyledAppTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
-  color: theme.palette.text.primary,
-  padding: "0.5rem",
-}));
-
 const Nav: React.FC = () => {
   return (
     <StyledAppBar elevation={1} position="static">
-      <StyledAppTitle variant="h5">Weather App</StyledAppTitle>
+      <AppTitle />
       <Search />
+      <NavLinks />
     </StyledAppBar>
   );
 };

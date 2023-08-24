@@ -3,23 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const citySlice = createSlice({
   name: "searchCity",
   initialState: {
-    currentCity: "",
-    previousCities: [] as ApiResponse[],
+    searchedCities: [] as string[],
   },
   reducers: {
-    setCurrentCity: (state, action) => {
-      state.currentCity = action.payload;
+    addSearchedCity: (state, action) => {
+      state.searchedCities.unshift(action.payload);
     },
 
-    addPreviousCity: (state, action) => {
-      state.previousCities.unshift(action.payload);
-    },
-
-    clearPreviousCities: (state) => {
-      state.previousCities = [];
+    clearSearchedCities: (state) => {
+      state.searchedCities = [];
     },
   },
 });
 
-export const { setCurrentCity, addPreviousCity } = citySlice.actions;
+export const { addSearchedCity, clearSearchedCities } = citySlice.actions;
 export default citySlice.reducer;

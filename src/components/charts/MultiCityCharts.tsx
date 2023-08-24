@@ -12,7 +12,7 @@ import {
   Card,
 } from "@mui/material";
 
-import Chart from "./Chart";
+import MultiCityChart from "./MultiCityChart";
 
 const StyledCityName = styled(Typography)<TypographyProps>(() => ({
   padding: "0.5rem",
@@ -26,34 +26,42 @@ const StyledChartsContainer = styled(Box)<BoxProps>(() => ({
 }));
 
 interface Props {
-  data?: ApiResponse;
+  citiesData?: ApiResponse[];
+  cityName?: string;
 }
 
-const Charts: React.FC<Props> = ({ data }) => {
-  const labels = data?.list?.map((forecast) =>
+const MultiCityCharts: React.FC<Props> = ({ citiesData, cityName }) => {
+  const labels = citiesData?.[0].list?.map((forecast) =>
     getDateTimeLabel(forecast.dt_txt)
   );
 
   const [orders, setOrders] = useState([1, 2, 3, 4]);
 
+  const getDatasets = (callback: (forecast: Forecast) => number) => {
+    return citiesData?.map((cityData) => ({
+      label: cityData.city.name,
+      data: cityData.list?.map(callback),
+    }));
+  };
+
   const chartsData = [
     {
       title: "Temprature C°",
-      data: data?.list?.map((forecast) =>
+      datasets: getDatasets((forecast) =>
         convertKelvinToCelsius(forecast.main.temp)
       ),
     },
     {
       title: "Pressure",
-      data: data?.list?.map((forecast) => forecast.main.pressure),
+      datasets: getDatasets((forecast) => forecast.main.pressure),
     },
     {
       title: "Humidity",
-      data: data?.list?.map((forecast) => forecast.main.humidity),
+      datasets: getDatasets((forecast) => forecast.main.humidity),
     },
     {
       title: "Wind Speed",
-      data: data?.list?.map((forecast) => forecast.wind.speed),
+      datasets: getDatasets((forecast) => forecast.wind.speed),
     },
   ];
 
@@ -67,16 +75,16 @@ const Charts: React.FC<Props> = ({ data }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <Card elevation={1} sx={{ mt: 2, mx: 2 }}>
-        <StyledCityName variant="h4">{data?.city.name}</StyledCityName>
+        <StyledCityName variant="h4">{cityName}</StyledCityName>
         <StyledChartsContainer>
-          {chartsData.map((chartData, index) => (
-            <Chart
+          {chartsData?.map((chartData, index) => (
+            <MultiCityChart
               chartTitle={chartData.title}
               labels={labels}
-              data={chartData.data}
-              key={index}
-              index={index}
               order={orders[index]}
+              datasets={chartData.datasets}
+              index={index}
+              key={index}
               handleOnDrop={handleOnDrop}
             />
           ))}
@@ -94,4 +102,4 @@ const getDateTimeLabel = (dateStamp: string) => {
   return format(date, "dd MMM hha");
 };
 
-export default Charts;
+export default MultiCityCharts;

@@ -1,5 +1,12 @@
-import { styled, Box, BoxProps } from "@mui/material";
+import {
+  styled,
+  Box,
+  BoxProps,
+  Typography,
+  TypographyProps,
+} from "@mui/material";
 import { Line } from "react-chartjs-2";
+import type { ChartData, ChartDataset } from "chart.js";
 import { useDrag, useDrop } from "react-dnd";
 import Resizable from "./Resizable";
 
@@ -17,6 +24,12 @@ const StyledChartContainer = styled(Box)<BoxProps>(() => ({
   height: "100%",
   display: "flex",
   justifyContent: "center",
+  marginBottom: "3rem",
+}));
+
+const StyledChartTitle = styled(Typography)<TypographyProps>(() => ({
+  textAlign: "center",
+  marginTop: "1rem",
 }));
 
 const StyledDragContainer = styled(Box)<BoxProps>(() => ({
@@ -25,18 +38,21 @@ const StyledDragContainer = styled(Box)<BoxProps>(() => ({
 }));
 
 interface Props {
+  // chartTitle: string;
+  // labels: string[] | undefined;
+  // data: number[] | undefined;
   chartTitle: string;
-  labels: string[] | undefined;
-  data: number[] | undefined;
+  labels?: string[];
+  datasets?: Dataset[];
   order: number;
   index: number;
   handleOnDrop: (dragIndex: number, dropIndex: number) => void;
 }
 
-const Chart: React.FC<Props> = ({
+const MultiCityChart: React.FC<Props> = ({
   chartTitle,
   labels,
-  data,
+  datasets,
   order,
   index,
   handleOnDrop,
@@ -53,14 +69,9 @@ const Chart: React.FC<Props> = ({
     },
   }));
 
-  const chartData = {
+  const chartData: ChartData<"line", number[], string> = {
     labels,
-    datasets: [
-      {
-        label: chartTitle,
-        data,
-      },
-    ],
+    datasets: datasets as ChartDataset<"line", number[]>[],
   };
 
   const chartStyles: React.CSSProperties = {
@@ -73,10 +84,11 @@ const Chart: React.FC<Props> = ({
       <Resizable>
         <StyledDragContainer ref={drag}>
           <Line datasetIdKey="id" style={chartStyles} data={chartData} />
+          <StyledChartTitle>{chartTitle}</StyledChartTitle>
         </StyledDragContainer>
       </Resizable>
     </StyledChartContainer>
   );
 };
 
-export default Chart;
+export default MultiCityChart;

@@ -1,4 +1,4 @@
-interface Forcast {
+interface Forecast {
   dt: string;
   main: {
     temp: number;
