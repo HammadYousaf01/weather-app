@@ -13,6 +13,7 @@ const App: React.FC = () => {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<SearchPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/compare" element={<ComparePage />} />
         <Route path="/map" element={<MapPage />} />
       </Route>
